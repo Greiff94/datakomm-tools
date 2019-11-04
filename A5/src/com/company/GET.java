@@ -10,11 +10,11 @@ import org.json.JSONObject;
 /**
  * An example showing how to send HTTP GET and read the response from the server
  */
-public class GETExample {
+public class GET {
 
     public static void main(String[] args) {
         // TODO: set correct host (domain or IP address) and TCP port
-        GETExample example = new GETExample("datakomm.work", 80);
+        GET example = new GET("datakomm.work", 80);
         example.doExampleGet();
     }
 
@@ -27,7 +27,7 @@ public class GETExample {
      * @param host Will send request to this host: IP address or domain
      * @param port Will use this port
      */
-    public GETExample(String host, int port) {
+    public GET(String host, int port) {
         BASE_URL = "http://" + host + ":" + port + "/";
     }
 
