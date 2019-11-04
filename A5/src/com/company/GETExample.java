@@ -19,7 +19,7 @@ public class GETExample {
     }
 
     private String BASE_URL; // Base URL (address) of the server
-  
+
 
     /**
      * Create an HTTP GET example
@@ -62,6 +62,29 @@ public class GETExample {
                 stream.close();
                 System.out.println("Response from the server:");
                 System.out.println(responseBody);
+                try{
+                    JSONObject jsonObject = new JSONObject(responseBody);
+                    if(jsonObject.has("a")) {
+                        int a = jsonObject.getInt("a");
+                        System.out.println("The object contains field 'a' with value "
+                                            + a);
+                    }
+                    if(jsonObject.has("b")) {
+                        int b = jsonObject.getInt("b");
+                        System.out.println("The object contains field 'b' with value "
+                                + b);
+                    }
+                    if(jsonObject.has("c")) {
+                        int c = jsonObject.getInt("c");
+                        System.out.println("The object contains field 'c' with value "
+                                + c);
+                    }
+                }  catch (JSONException e) {
+                // It is important to always wrap JSON parsing in try/catch
+                // If the string is suddently not in the expected format,
+                // an exception will be generated
+                System.out.println("Got exception in JSON parsing: " + e.getMessage());
+            }
             } else {
                 String responseDescription = con.getResponseMessage();
                 System.out.println("Request failed, response code: " + responseCode + " (" + responseDescription + ")");
@@ -92,46 +115,5 @@ public class GETExample {
             System.out.println("Could not read the data from HTTP response: " + ex.getMessage());
         }
         return response.toString();
-    }
-    private void objectExample() {
-        System.out.println("-------------------------------");
-        System.out.println("Test JSON Object parsing");
-        System.out.println("-------------------------------");
-
-        // JSON object example
-        // We start with a String in JSON notation. It describes an object
-        // We will try to extract the data from the JSON string
-        String jsonObjectString = convertStreamToString();
-        System.out.println("Starting json string: " + jsonObjectString);
-
-        // Let's try to parse it as a JSON object
-        try {
-            JSONObject jsonObject = new JSONObject(jsonObjectString);
-            if (jsonObject.has("a")) {
-                int a = jsonObject.getInt("a");
-                System.out.println("The object contains field 'a' with value "
-                        +a);
-            }
-            JSONObject jsonObject = new JSONObject(jsonObjectString);
-            if (jsonObject.has("a")) {
-                int b = jsonObject.getInt("b");
-                System.out.println("The object contains field 'b' with value "
-                        +b);
-            }
-
-            JSONObject jsonObject = new JSONObject(jsonObjectString);
-            if (jsonObject.has("a")) {
-                int c = jsonObject.getInt("c");
-                System.out.println("The object contains field 'c' with value "
-                        +c);
-            }
-
-        } catch (JSONException e) {
-            // It is important to always wrap JSON parsing in try/catch
-            // If the string is suddently not in the expected format,
-            // an exception will be generated
-            System.out.println("Got exception in JSON parsing: " + e.getMessage());
-        }
-        System.out.println("");
     }
     }
